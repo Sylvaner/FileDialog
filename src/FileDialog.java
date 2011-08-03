@@ -1,21 +1,3 @@
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.graphics.Typeface;
-import android.util.TypedValue;
-import android.view.Gravity;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.BaseAdapter;
 /*
  * Copyright (c) 2011 Sylvain DANGIN
  * All rights reserved.
@@ -43,6 +25,26 @@ import android.widget.BaseAdapter;
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
+import android.graphics.Typeface;
+import android.util.TypedValue;
+import android.view.Gravity;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -96,10 +98,11 @@ public class FileDialog
 	
 	public static int ACTION_SELECTED_FILE = 0;
 	public static int ACTION_SELECTED_DIRECTORY = 1;
+	public static int ACTION_CANCEL = 2;
 	
 	// Configuration
 	private final String DEFAULT_PATH = "/sdcard/";
-	private final int LISTVIEW_ITEM_HEIGHT = 20;
+	private final int LISTVIEW_ITEM_HEIGHT = 24;
 	
 	private int language = LANG_EN;
 	private String currentPath = DEFAULT_PATH;
@@ -182,7 +185,7 @@ public class FileDialog
 
     	// Add select actions buttons
     	final Button selectButton = new Button(context);
-    	selectButton.setText(LOCALES_STRING[language][STRING_SELECT_DIR]);
+    	selectButton.setText(LOCALES_STRING[language][STRING_SELECT]);
     	selectButton.setOnClickListener(new OnClickListener()
 		{
 			public void onClick(View arg0)
@@ -193,7 +196,7 @@ public class FileDialog
 			}
 		});
 
-		showDialog(LOCALES_STRING[language][STRING_SELECT], makeDirButton, selectButton);
+		showDialog(LOCALES_STRING[language][STRING_SELECT_DIR], makeDirButton, selectButton);
 	}
 	
     // Return button for making a directory
@@ -268,8 +271,18 @@ public class FileDialog
 
     	((LinearLayout)globalLinearLayout.findViewById(VIEW_ACTION_LAYOUT_ID)).addView(leftButton);
     	((LinearLayout)globalLinearLayout.findViewById(VIEW_ACTION_LAYOUT_ID)).addView(rightButton);
-    	
+        
     	dialog.setContentView(globalLinearLayout);
+    	// Cancel action
+    	dialog.setCancelable(true);
+    	dialog.setOnCancelListener(new OnCancelListener()
+		{
+			public void onCancel(DialogInterface arg0)
+			{
+				if (listener != null)
+					listener.userAction(ACTION_CANCEL, null);
+			}
+		});
     	dialog.setTitle(title);
     	dialog.show();
 	}
