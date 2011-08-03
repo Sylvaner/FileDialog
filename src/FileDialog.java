@@ -36,15 +36,15 @@ public class FileDialog
 		 "Enter a name",
 		 "Select",
 		 "Impossible to create directory"},
-		{"Sélectionnez un fichier",
-		 "Sélectionnez un répertoire",
-		 "Créer un répertoire",
+		{"SÃ©lectionnez un fichier",
+		 "SÃ©lectionnez un rÃ©pertoire",
+		 "CrÃ©er un rÃ©pertoire",
 		 "Nouveau fichier",
-		 "Créer",
+		 "CrÃ©er",
 		 "Annuler",
 		 "Entrez un nom",
-		 "Sélectionner",
-		 "Impossible de créer le répertoire"}};
+		 "SÃ©lectionner",
+		 "Impossible de crÃ©er le rÃ©pertoire"}};
 	
 	private final int STRING_SELECT_FILE = 0;
 	private final int STRING_SELECT_DIR = 1;
