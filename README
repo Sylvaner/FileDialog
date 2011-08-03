@@ -1,0 +1,7 @@
+FILEDIALOG
+
+Abstract : 
+FileDialog is an open file dialog for Android.
+
+Goal : 
+The goal of this project is to create an open file dialog in only one file. Use must simple and fast.
