@@ -175,6 +175,14 @@ public class FileDialog
 		showDialog(LOCALES_STRING[language][STRING_SELECT_FILE], makeDirButton, newFileButton);
 	}
 	
+    // Open dialog box for select file
+    public void selectFileStrict()
+	{
+    	mode = MODE_SELECT_FILE;
+
+		showDialog(LOCALES_STRING[language][STRING_SELECT_FILE], null, null);
+	}
+	
     // Open dialog for select directory
     public void selectDirectory()
 	{
@@ -254,24 +262,27 @@ public class FileDialog
 			}});
     	globalLinearLayout.addView(fileListView);
     	
-    	// Create a linear layout for actions
-    	LinearLayout actionLinearLayout = new LinearLayout(context);
-    	LinearLayout.LayoutParams actionLinearLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-    	actionLinearLayout.setOrientation(LinearLayout.HORIZONTAL);
-    	actionLinearLayout.setLayoutParams(actionLinearLayoutParams);
-    	actionLinearLayout.setId(VIEW_ACTION_LAYOUT_ID);
-    	globalLinearLayout.addView(actionLinearLayout);
-
-    	// Add buttons
-		final LinearLayout.LayoutParams buttonLayoutParams = new LinearLayout.LayoutParams(0, LayoutParams.FILL_PARENT);
-    	buttonLayoutParams.weight = 0.5f;
-
-    	leftButton.setLayoutParams(buttonLayoutParams);
-    	rightButton.setLayoutParams(buttonLayoutParams);
-
-    	((LinearLayout)globalLinearLayout.findViewById(VIEW_ACTION_LAYOUT_ID)).addView(leftButton);
-    	((LinearLayout)globalLinearLayout.findViewById(VIEW_ACTION_LAYOUT_ID)).addView(rightButton);
-        
+    	if (rightButton != null && leftButton != null)
+    	{
+	    	// Create a linear layout for actions
+	    	LinearLayout actionLinearLayout = new LinearLayout(context);
+	    	LinearLayout.LayoutParams actionLinearLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+	    	actionLinearLayout.setOrientation(LinearLayout.HORIZONTAL);
+	    	actionLinearLayout.setLayoutParams(actionLinearLayoutParams);
+	    	actionLinearLayout.setId(VIEW_ACTION_LAYOUT_ID);
+	    	globalLinearLayout.addView(actionLinearLayout);
+	
+	    	// Add buttons
+			final LinearLayout.LayoutParams buttonLayoutParams = new LinearLayout.LayoutParams(0, LayoutParams.FILL_PARENT);
+	    	buttonLayoutParams.weight = 0.5f;
+	
+	    	leftButton.setLayoutParams(buttonLayoutParams);
+	    	rightButton.setLayoutParams(buttonLayoutParams);
+	
+	    	((LinearLayout)globalLinearLayout.findViewById(VIEW_ACTION_LAYOUT_ID)).addView(leftButton);
+	    	((LinearLayout)globalLinearLayout.findViewById(VIEW_ACTION_LAYOUT_ID)).addView(rightButton);
+    	}
+    	
     	dialog.setContentView(globalLinearLayout);
     	// Cancel action
     	dialog.setCancelable(true);
